@@ -1,79 +1,163 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Wallet App
 
-# Getting Started
+A full-stack wallet application built with React Native for mobile users and an Express backend for API services. The app features user authentication, transaction management, wallet balance display, and recurring transaction tracking.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+---
 
-## Step 1: Start the Metro Server
+## Features
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+### Mobile App (React Native)
+- **Authentication**: User login/logout functionality with unique usernames.
+- **Wallet Management**:
+  - View wallet balance.
+  - Add transactions (send/receive).
+  - Filter transaction history by category, date range, etc.
+  - Add recurring transactions.
+  - Predefined transaction categories (e.g., Food, Salary, Savings).
+- **Interactive UI**:
+  - Custom components like `TransactionCard` and `WalletBalanceCard`.
+  - Modals for advanced filtering.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+### Backend (Express)
+- **APIs** for managing users, wallets, and transactions.
+- **Database**: Models implemented using Prisma:
+  - `User`: Stores user details (id, username, email).
+  - `Wallet`: Tracks user wallet balances.
+  - `Transaction`: Stores transaction details (id, walletId, type, amount, category).
+- **CRUD operations**: Complete backend for managing all app data.
 
-```bash
-# using npm
-npm start
+---
 
-# OR using Yarn
-yarn start
-```
+## Installation Guide
 
-## Step 2: Start your Application
+### Prerequisites
+Ensure you have the following installed:
+- Node.js (>=14.x)
+- npm or yarn
+- Prisma CLI
+- Expo CLI
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+### Frontend Setup
 
-### For Android
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/wallet-app.git
+   cd wallet-app/frontend
+   ```
 
-```bash
-# using npm
-npm run android
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-# OR using Yarn
-yarn android
-```
+3. Start the development server:
+   ```bash
+   expo start
+   ```
 
-### For iOS
+4. Use the Expo Go app on your mobile device to scan the QR code and preview the app.
 
-```bash
-# using npm
-npm run ios
+### Backend Setup
 
-# OR using Yarn
-yarn ios
-```
+1. Navigate to the backend folder:
+   ```bash
+   cd wallet-app/backend
+   ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+3. Set up the Prisma database:
+   ```bash
+   npx prisma migrate dev
+   ```
 
-## Step 3: Modifying your App
+4. Start the backend server:
+   ```bash
+   npm run dev
+   ```
 
-Now that you have successfully run the app, let's modify it.
+5. The API will be available at `http://localhost:3000`.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+---
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+## File Structure
 
-## Congratulations! :tada:
+### Frontend
+- **`src/screens`**:
+  - `HomeScreen.tsx`: Displays wallet balance and transaction options.
+  - `AddTransactionScreen.tsx`: Add new transactions.
+  - `TransactionHistoryScreen.tsx`: View transaction history.
+  - `RecurringTransactionsScreen.tsx`: Manage recurring transactions.
+  - `LoginScreen.tsx`: Handles user authentication.
+  - `Register.tsx`: Handles user new registeration(Sign Up).
+- **`src/components`**:
+  - `TransactionCard.tsx`: Displays individual transaction details.
+  - `WalletBalanceCard.tsx`: Displays the wallet balance.
+  - `FilterModal.tsx`: A modal for applying filters to transactions.
+- **`src/context`**:
+  - `AuthContext.tsx`: Provides global state for authentication.
+- **`src/navigation`**:
+  - `AppNavigator.tsx`: Configures navigation between screens.
+  ** `src/service`**
+    -`api`: For api calls.
+    -`auth`: for managing axoin.
+  **`src/util`**:
+    
+  ### App
+`App.tsx`**: Root component that integrates authentication and navigation.
 
-You've successfully run and modified your React Native App. :partying_face:
+### Backend
+- **`src/prisma`**:
+  - `schema.prisma`: Defines database schema for users, wallets, and transactions.
+- **`src/routes`**:
+  - `userRoutes.ts`: CRUD operations for users.
+  - `walletRoutes.ts`: CRUD operations for wallets.
+  - `transactionRoutes.ts`: CRUD operations for transactions.
+- **`src/controllers`**:
+  - Logic for handling API requests.
+- **`src/server.ts`**:
+  - Express server setup and route integration.
 
-### Now what?
+---
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+## Usage
+1. Start both the frontend and backend servers.
+2. Log in or sign up as a new user.
+3. Add transactions, view wallet balance, and manage recurring transactions.
+4. Use the filter options to explore transaction history.
 
-# Troubleshooting
+---
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## Technologies Used
+- **Frontend**:
+  - React Native
+  - Expo CLI
+  - TypeScript
+  - React Navigation
+- **Backend**:
+  - Express.js
+  - Prisma ORM
+  - TypeScript
+- **Database**: SQLite (for development) / PostgreSQL (for production)
 
-# Learn More
+---
 
-To learn more about React Native, take a look at the following resources:
+## Future Improvements
+- Implement push notifications for recurring transactions.
+- Add support for multiple wallets per user.
+- Integrate a third-party authentication system (e.g., Firebase or OAuth).
+- Enhance UI/UX with animations.
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+---
+
+## Contributing
+Feel free to open issues or create pull requests to contribute to this project. For major changes, please open an issue first to discuss what you would like to change.
+
+---
+
+## License
+This project is licensed under the MIT License.
+
